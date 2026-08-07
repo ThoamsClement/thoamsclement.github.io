@@ -4,16 +4,16 @@ date: 2026-08-08
 type: "about"
 layout: "page"
 ---
+<img src="avater.jpg" width="130" height="130" style="border-radius: 50%; float: right; margin-left: 20px;" alt="大頭照">
 
 # 余右丞 (YUCHENG YU)
-
 **後端 / 系統開發工程師 & 技術講師**  
 新北市鶯歌區 | 4~5年工作經歷  
 **Email:** [hippoasie@gmail.com](mailto:hippoasie@gmail.com) | **Phone:** 0908-695-767 | **作品集:** [GitHub](#)
 
 ---
 
-## 💡 個人簡介 (About Me)
+## 個人簡介 (About Me)
 
 我從事過程式與系統相關接案工作，熟悉 **Python**、**Web Backend** (Flask、Django、Laravel)、**API 串接與自動化流程設計**。實務上能依需求完成系統規劃、功能實作、資料流程整合與問題排查，並重視系統穩定性、可維護性與實際運作情境。
 
