@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-TW" x-data="{ isDark: true, lang: 'zh' }" :class="{ 'dark': isDark }">
+<html lang="zh-TW" x-data="resumeApp()" :class="{ 'dark': isDark }">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,7 +52,7 @@
         </div>
         
         <div class="text-sm text-slate-500 dark:text-slate-400 space-y-1">
-          <div>Email: <a href="mailto:hippoasie@gmail.com" class="text-sky-500 dark:text-sky-400 hover:underline">hippoworld7@gmail.com</a></div>
+          <div>Email: <a href="mailto:hippoworld7@gmail.com" class="text-sky-500 dark:text-sky-400 hover:underline">hippoworld7@gmail.com</a></div>
           <div><span x-show="lang === 'zh'">電話：</span><span x-show="lang === 'en'">Phone: </span>0908-695-767</div>
           <div><span x-show="lang === 'zh'">地點：</span><span x-show="lang === 'en'">Location: </span>新北市鶯歌區</div>
           <div>
@@ -68,7 +68,7 @@
     <div class="mb-8">
       <h2 class="text-xl font-bold text-sky-500 dark:text-sky-400 border-b-2 border-slate-200 dark:border-slate-700 pb-1 mb-3">
         <span x-show="lang === 'zh'">個人簡介與自傳</span>
-        <span x-show="lang === 'en'"> About Me</span>
+        <span x-show="lang === 'en'">About Me</span>
       </h2>
       <div class="text-slate-600 dark:text-slate-300 leading-relaxed space-y-3">
         <p x-show="lang === 'zh'">
@@ -86,11 +86,11 @@
       </div>
     </div>
 
-    <!-- 工作經歷 -->
+    <!-- 工作經歷 (自動計算年資) -->
     <div class="mb-8">
       <h2 class="text-xl font-bold text-sky-500 dark:text-sky-400 border-b-2 border-slate-200 dark:border-slate-700 pb-1 mb-3">
-        <span x-show="lang === 'zh'">工作經歷 (總年資 4~5 年)</span>
-        <span x-show="lang === 'en'">Work Experience</span>
+        <span x-show="lang === 'zh'">工作經歷 (累積總年資：<span x-text="calcTotalExp('zh')"></span>)</span>
+        <span x-show="lang === 'en'">Work Experience (Total: <span x-text="calcTotalExp('en')"></span>)</span>
       </h2>
       
       <div class="space-y-6">
@@ -117,7 +117,7 @@
               <span x-show="lang === 'zh'">英文老師 - 正朔文教</span>
               <span x-show="lang === 'en'">English Tutor - Zhengshuo Education</span>
             </strong>
-            <span class="text-sm text-slate-400">2024/03 - <span x-show="lang === 'zh'">仍在職</span><span x-show="lang === 'en'">Present</span></span>
+            <span class="text-sm text-slate-400">2024/03 - 2026/08</span>
           </div>
           <ul class="list-disc pl-5 text-slate-600 dark:text-slate-300 space-y-1 mt-2">
             <li>輔導課內教材與評估學生程度，提供自編講義與個別化出題。</li>
@@ -132,7 +132,7 @@
               <span x-show="lang === 'zh'">技術講師 - 壞主意有限公司</span>
               <span x-show="lang === 'en'">Technical Instructor - Bad Idea Co., Ltd.</span>
             </strong>
-            <span class="text-sm text-slate-400">2023/10 - <span x-show="lang === 'zh'">仍在職</span><span x-show="lang === 'en'">Present</span></span>
+            <span class="text-sm text-slate-400">2023/10 - 2026/07</span>
           </div>
           <ul class="list-disc pl-5 text-slate-600 dark:text-slate-300 space-y-1 mt-2">
             <li>負責國小至國中生之 Python 與 Scratch 兒童程式邏輯教學。</li>
@@ -175,8 +175,7 @@
             <span x-show="lang === 'zh'">GIS / ArcGIS 測繪工具：</span>
             <span x-show="lang === 'en'">GIS / ArcGIS Services Packages: </span>
           </strong>
-          ArcGIS, Spatial Analysis (空間分析), Python (GeoPandas / Shapely), 地理資訊視覺化
-          (未公開之專案)
+          ArcGIS, Spatial Analysis (空間分析), Python (GeoPandas / Shapely), 地理資訊視覺化 (未公開之專案)
         </li>
         <li>
           <strong class="text-slate-800 dark:text-slate-100">
@@ -239,13 +238,43 @@
           <span x-show="lang === 'en'">Class C technician for computer hardware assembly</span>
         </li>
         <li>
-          <span x-show="lang === 'zh'">ISO:14064-1 碳盤查溫室氣體主導查證員</span>
-          <span x-show="lang === 'en'">ISO 14064 GREENHOUSE GAS INVENTORY MANAGEMENT</span>
-
+          <span x-show="lang === 'zh'">ISO 14064-1 碳盤查溫室氣體主導查證員</span>
+          <span x-show="lang === 'en'">ISO 14064 Greenhouse Gas Inventory Lead Verifier</span>
+        </li>
       </ul>
     </div>
 
   </div>
 
+  <!-- 年資計算邏輯 JavaScript -->
+  <script>
+    function resumeApp() {
+      return {
+        isDark: true,
+        lang: 'zh',
+        // 設定起算時間（設為首份工作時間 2021 年 6 月）
+        startDate: new Date('2021-06-01'),
+        
+        calcTotalExp(l) {
+          const now = new Date();
+          let years = now.getFullYear() - this.startDate.getFullYear();
+          let months = now.getMonth() - this.startDate.getMonth();
+          
+          if (months < 0) {
+            years--;
+            months += 12;
+          }
+          
+          if (l === 'zh') {
+            return `${years} 年 ${months} 個月`;
+          } else {
+            const yrTxt = years > 1 ? 'yrs' : 'yr';
+            const moTxt = months > 1 ? 'mos' : 'mo';
+            return `${years} ${yrTxt} ${months} ${moTxt}`;
+          }
+        }
+      }
+    }
+  </script>
 </body>
 </html>
