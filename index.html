@@ -1,97 +1,239 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-TW" x-data="{ isDark: true, lang: 'zh' }" :class="{ 'dark': isDark }">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>余右丞 | YUCHENG YU - CV</title>
-  <style>
-    :root {
-      --bg: #0f172a;
-      --card-bg: #1e293b;
-      --text-main: #f8fafc;
-      --text-sub: #94a3b8;
-      --accent: #38bdf8;
-      --border: #334155;
+  <title>余右丞 | YUCHENG YU - Resume</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            accent: '#38bdf8',
+          }
+        }
+      }
     }
-    body {
-      background-color: var(--bg);
-      color: var(--text-main);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      line-height: 1.6;
-      margin: 0;
-      padding: 40px 20px;
-      display: flex;
-      justify-content: center;
-    }
-    .container {
-      max-width: 800px;
-      width: 100%;
-      background: var(--card-bg);
-      padding: 40px;
-      border-radius: 16px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-      border: 1px solid var(--border);
-    }
-    .header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 24px;
-      margin-bottom: 30px;
-    }
-    .avatar {
-      width: 110px;
-      height: 110px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 3px solid var(--accent);
-    }
-    h1 { margin: 0 0 8px 0; color: var(--text-main); font-size: 2rem; }
-    .title { color: var(--accent); font-weight: 600; font-size: 1.1rem; margin-bottom: 12px; }
-    .contact { font-size: 0.9rem; color: var(--text-sub); }
-    .contact a { color: var(--accent); text-decoration: none; }
-    .section-title {
-      font-size: 1.3rem;
-      color: var(--accent);
-      border-bottom: 2px solid var(--border);
-      padding-bottom: 6px;
-      margin-top: 30px;
-      margin-bottom: 16px;
-    }
-    ul { padding-left: 20px; color: var(--text-sub); }
-    li { margin-bottom: 8px; }
-  </style>
+  </script>
+  <!-- Alpine.js CDN -->
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
-<body>
-  <div class="container">
-    <div class="header">
-      <div>
-        <h1>余右丞 (YUCHENG YU)</h1>
-        <div class="title">全端工程師 / Web Developer</div>
-        <div class="contact">
-          Email: <a href="mailto:your.email@example.com">hippoworld7@gmail.com</a><br>
-          GitHub: <a href="[https://github.com/你的帳號](https://github.com/ThoamsClement)" target="_blank">[github.com/ThoamsClement]</a>
-        </div>
-      </div>
-      <!-- 換成你的照片檔名或 GitHub 大頭照網址 -->
-      <img src="avater.jpg" class="avatar" alt="Avatar">
+<body class="bg-slate-100 text-slate-800 dark:bg-slate-900 dark:text-slate-100 min-h-screen py-10 px-4 transition-colors duration-200">
+  
+  <div class="max-w-4xl mx-auto bg-white dark:bg-slate-800 p-8 sm:p-10 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700">
+    
+    <!-- 控制列：主題與語言切換 -->
+    <div class="flex justify-end gap-3 mb-6 text-sm">
+      <button 
+        @click="lang = (lang === 'zh' ? 'en' : 'zh')"
+        class="px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-600 hover:border-sky-500 dark:hover:border-sky-400 transition"
+        x-text="lang === 'zh' ? 'English' : '中文'">
+      </button>
+      <button 
+        @click="isDark = !isDark"
+        class="px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-600 hover:border-sky-500 dark:hover:border-sky-400 transition"
+        x-text="isDark ? (lang === 'zh' ? '亮色模式' : 'Light Mode') : (lang === 'zh' ? '深色模式' : 'Dark Mode')">
+      </button>
     </div>
 
-    <div class="section-title">個人簡介</div>
-    <p style="color: var(--text-sub);">熱愛開發與探索新技術的全端工程師，具備良好的問題解決能力與模組化開發思維。</p>
+    <!-- 個人資訊 Header -->
+    <div class="flex flex-col-reverse sm:flex-row items-center sm:items-start justify-between border-b border-slate-200 dark:border-slate-700 pb-6 mb-8 gap-6">
+      <div class="text-center sm:text-left">
+        <h1 class="text-3xl font-bold mb-1" x-show="lang === 'zh'">余右丞</h1>
+        <h1 class="text-3xl font-bold mb-1" x-show="lang === 'en'">YUCHENG YU</h1>
+        
+        <div class="text-sky-500 dark:text-sky-400 font-semibold mb-3">
+          <span x-show="lang === 'zh'">軟體工程師 / 特約講師</span>
+          <span x-show="lang === 'en'">Software Engineer / Adjunct Lecturer</span>
+        </div>
+        
+        <div class="text-sm text-slate-500 dark:text-slate-400 space-y-1">
+          <div>Email: <a href="mailto:hippoasie@gmail.com" class="text-sky-500 dark:text-sky-400 hover:underline">hippoasie@gmail.com</a></div>
+          <div><span x-show="lang === 'zh'">電話：</span><span x-show="lang === 'en'">Phone: </span>0908-695-767</div>
+          <div><span x-show="lang === 'zh'">地點：</span><span x-show="lang === 'en'">Location: </span>新北市鶯歌區</div>
+          <div>
+            GitHub: <a href="https://github.com/hippoasie" target="_blank" class="text-sky-500 dark:text-sky-400 hover:underline">github.com/hippoasie</a>
+          </div>
+        </div>
+      </div>
+      <!-- 大頭照 -->
+      <img src="avater.jpg" class="w-28 h-28 rounded-full border-2 border-sky-500 dark:border-sky-400 object-cover" alt="YUCHENG YU">
+    </div>
 
-    <div class="section-title"> 專業技能</div>
-    <ul>
-      <li><strong>前端：</strong> HTML5 / CSS3 / JavaScript (ES6+) / Vue / React</li>
-      <li><strong>後端：</strong> Node.js / Express / Python</li>
-      <li><strong>工具：</strong> Git / GitHub / Docker</li>
-    </ul>
+    <!-- 個人簡介 / 自傳 -->
+    <div class="mb-8">
+      <h2 class="text-xl font-bold text-sky-500 dark:text-sky-400 border-b-2 border-slate-200 dark:border-slate-700 pb-1 mb-3">
+        <span x-show="lang === 'zh'">個人簡介與自傳</span>
+        <span x-show="lang === 'en'"> About Me</span>
+      </h2>
+      <div class="text-slate-600 dark:text-slate-300 leading-relaxed space-y-3">
+        <p x-show="lang === 'zh'">
+          從事程式與系統相關接案工作，熟悉 Python、Web Backend (Flask、Django、Laravel)、API 串接與自動化流程設計。實務上能依需求完成系統規劃、功能實作、資料流程整合與問題排查，並重視系統穩定性、可維護性與實際運作情境。
+        </p>
+        <p x-show="lang === 'zh'">
+          具備良好的除錯與問題分析能力，能向非技術背景的對象清楚說明系統邏輯與使用方式，降低交付與後續維運風險。
+        </p>
+        <p x-show="lang === 'en'">
+          I work primarily as a freelance backend and system developer, with hands-on experience in Python, web backend development (Flask, Django, Laravel), API integration, and workflow automation.
+        </p>
+        <p x-show="lang === 'en'">
+          I am experienced in system design, third-party service integration, debugging, and issue diagnosis, with strong attention to stability and security. Capable of clearly communicating technical concepts to non-technical stakeholders.
+        </p>
+      </div>
+    </div>
 
-    <div class="section-title"> 專案經歷</div>
-    <ul>
-      <li><strong>個人履歷網站：</strong> 使用 GitHub Pages 與 GitHub Actions 建立之自動化部署站點。</li>
-    </ul>
+    <!-- 工作經歷 -->
+    <div class="mb-8">
+      <h2 class="text-xl font-bold text-sky-500 dark:text-sky-400 border-b-2 border-slate-200 dark:border-slate-700 pb-1 mb-3">
+        <span x-show="lang === 'zh'">工作經歷 (總年資 4~5 年)</span>
+        <span x-show="lang === 'en'">Work Experience</span>
+      </h2>
+      
+      <div class="space-y-6">
+        <!-- 經歷 1 -->
+        <div>
+          <div class="flex flex-col sm:flex-row sm:justify-between sm:items-baseline">
+            <strong class="text-lg text-slate-800 dark:text-slate-100">
+              <span x-show="lang === 'zh'">特約講師 - AmazingTalker 驚奇學習有限公司</span>
+              <span x-show="lang === 'en'">Adjunct Lecturer - AmazingTalker Limited</span>
+            </strong>
+            <span class="text-sm text-slate-400">2025/08 - <span x-show="lang === 'zh'">仍在職</span><span x-show="lang === 'en'">Present</span></span>
+          </div>
+          <ul class="list-disc pl-5 text-slate-600 dark:text-slate-300 space-y-1 mt-2">
+            <li><strong>Python 個人教學：</strong>基礎語法、資料處理、機器學習、時間序列分析。</li>
+            <li><strong>Web Backend：</strong>Flask / Django / Laravel 後端開發與架構教學。</li>
+            <li><strong>API 與自動化：</strong>REST API 串接、Webhook 設定、Make / PyGUI 自動化工具。</li>
+          </ul>
+        </div>
+
+        <!-- 經歷 2 -->
+        <div>
+          <div class="flex flex-col sm:flex-row sm:justify-between sm:items-baseline">
+            <strong class="text-lg text-slate-800 dark:text-slate-100">
+              <span x-show="lang === 'zh'">英文老師 - 正朔文教</span>
+              <span x-show="lang === 'en'">English Tutor - Zhengshuo Education</span>
+            </strong>
+            <span class="text-sm text-slate-400">2024/03 - <span x-show="lang === 'zh'">仍在職</span><span x-show="lang === 'en'">Present</span></span>
+          </div>
+          <ul class="list-disc pl-5 text-slate-600 dark:text-slate-300 space-y-1 mt-2">
+            <li>輔導課內教材與評估學生程度，提供自編講義與個別化出題。</li>
+            <li>針對文法簡化、口語流暢度、詞彙量擴充與發音進行專項訓練。</li>
+          </ul>
+        </div>
+
+        <!-- 經歷 3 -->
+        <div>
+          <div class="flex flex-col sm:flex-row sm:justify-between sm:items-baseline">
+            <strong class="text-lg text-slate-800 dark:text-slate-100">
+              <span x-show="lang === 'zh'">技術講師 - 壞主意有限公司</span>
+              <span x-show="lang === 'en'">Technical Instructor - Bad Idea Co., Ltd.</span>
+            </strong>
+            <span class="text-sm text-slate-400">2023/10 - <span x-show="lang === 'zh'">仍在職</span><span x-show="lang === 'en'">Present</span></span>
+          </div>
+          <ul class="list-disc pl-5 text-slate-600 dark:text-slate-300 space-y-1 mt-2">
+            <li>負責國小至國中生之 Python 與 Scratch 兒童程式邏輯教學。</li>
+            <li>透過互動式專案帶領學生建立邏輯思維與獨立解決問題能力。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 專業技能與專長 -->
+    <div class="mb-8">
+      <h2 class="text-xl font-bold text-sky-500 dark:text-sky-400 border-b-2 border-slate-200 dark:border-slate-700 pb-1 mb-3">
+        <span x-show="lang === 'zh'">專業技能</span>
+        <span x-show="lang === 'en'">Skills & Expertise</span>
+      </h2>
+      <ul class="list-disc pl-5 text-slate-600 dark:text-slate-300 space-y-2">
+        <li>
+          <strong class="text-slate-800 dark:text-slate-100">
+            <span x-show="lang === 'zh'">程式語言與框架：</span>
+            <span x-show="lang === 'en'">Languages & Frameworks: </span>
+          </strong>
+          Python (Keras, OpenCV), C++, Golang, Flask, Django, Laravel
+        </li>
+        <li>
+          <strong class="text-slate-800 dark:text-slate-100">
+            <span x-show="lang === 'zh'">資料庫與 API：</span>
+            <span x-show="lang === 'en'">Databases & API: </span>
+          </strong>
+          MySQL, MS SQL, PL/SQL, REST API, Webhooks, 第三方平台整合
+        </li>
+        <li>
+          <strong class="text-slate-800 dark:text-slate-100">
+            <span x-show="lang === 'zh'">版本控制與工具：</span>
+            <span x-show="lang === 'en'">Dev Tools: </span>
+          </strong>
+          Git, Make, PyGUI, 軟體程式設計
+        </li>
+        <li>
+          <strong class="text-slate-800 dark:text-slate-100">
+            <span x-show="lang === 'zh'">語言能力：</span>
+            <span x-show="lang === 'en'">Languages: </span>
+          </strong>
+          <span x-show="lang === 'zh'">英文（聽/說 精通、讀/寫 中等）</span>
+          <span x-show="lang === 'en'">English (Listening/Speaking: Fluent, Reading/Writing: Intermediate)</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- 學歷背景 -->
+    <div class="mb-8">
+      <h2 class="text-xl font-bold text-sky-500 dark:text-sky-400 border-b-2 border-slate-200 dark:border-slate-700 pb-1 mb-3">
+        <span x-show="lang === 'zh'">學歷背景</span>
+        <span x-show="lang === 'en'">Education</span>
+      </h2>
+      <div class="space-y-3">
+        <div class="flex justify-between items-baseline">
+          <div>
+            <strong class="text-slate-800 dark:text-slate-100">
+              <span x-show="lang === 'zh'">中山醫學大學 - 公共衛生學系</span>
+              <span x-show="lang === 'en'">Chung Shan Medical University - Public Health</span>
+            </strong>
+            <span class="text-slate-500 dark:text-slate-400 text-sm ml-2">
+              <span x-show="lang === 'zh'">| 大學畢業</span><span x-show="lang === 'en'">| Bachelor</span>
+            </span>
+          </div>
+          <span class="text-sm text-slate-400">2021/06 - 2026/06</span>
+        </div>
+        <div class="flex justify-between items-baseline">
+          <div>
+            <strong class="text-slate-800 dark:text-slate-100">
+              <span x-show="lang === 'zh'">新北市立鶯歌高級工商職業學校 - 資訊科</span>
+              <span x-show="lang === 'en'">New Taipei Municipal Yingge Vocational High School - Information</span>
+            </strong>
+            <span class="text-slate-500 dark:text-slate-400 text-sm ml-2">
+              <span x-show="lang === 'zh'">| 高職畢業</span><span x-show="lang === 'en'">| High School</span>
+            </span>
+          </div>
+          <span class="text-sm text-slate-400">2017/06 - 2020/06</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 資格認證 -->
+    <div>
+      <h2 class="text-xl font-bold text-sky-500 dark:text-sky-400 border-b-2 border-slate-200 dark:border-slate-700 pb-1 mb-3">
+        <span x-show="lang === 'zh'">資格認證</span>
+        <span x-show="lang === 'en'">Certifications</span>
+      </h2>
+      <ul class="list-disc pl-5 text-slate-600 dark:text-slate-300 space-y-1">
+        <li>
+          <span x-show="lang === 'zh'">Microsoft AI-900 AI 人工智慧基礎認證</span>
+          <span x-show="lang === 'en'">Microsoft Azure AI Fundamentals (AI-900)</span>
+        </li>
+        <li>
+          <span x-show="lang === 'zh'">勞動部 - 丙級電腦硬體裝修技術士</span>
+          <span x-show="lang === 'en'">Class C technician for computer hardware assembly</span>
+        </li>
+      </ul>
+    </div>
+
   </div>
+
 </body>
 </html>
