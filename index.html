@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>余右丞 | YUCHENG YU - CV</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --text-main: #f8fafc;
+      --text-sub: #94a3b8;
+      --accent: #38bdf8;
+      --border: #334155;
+    }
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 40px 20px;
+      display: flex;
+      justify-content: center;
+    }
+    .container {
+      max-width: 800px;
+      width: 100%;
+      background: var(--card-bg);
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      border: 1px solid var(--border);
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 24px;
+      margin-bottom: 30px;
+    }
+    .avatar {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--accent);
+    }
+    h1 { margin: 0 0 8px 0; color: var(--text-main); font-size: 2rem; }
+    .title { color: var(--accent); font-weight: 600; font-size: 1.1rem; margin-bottom: 12px; }
+    .contact { font-size: 0.9rem; color: var(--text-sub); }
+    .contact a { color: var(--accent); text-decoration: none; }
+    .section-title {
+      font-size: 1.3rem;
+      color: var(--accent);
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 6px;
+      margin-top: 30px;
+      margin-bottom: 16px;
+    }
+    ul { padding-left: 20px; color: var(--text-sub); }
+    li { margin-bottom: 8px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div>
+        <h1>余右丞 (YUCHENG YU)</h1>
+        <div class="title">全端工程師 / Web Developer</div>
+        <div class="contact">
+          Email: <a href="mailto:your.email@example.com">hippoworld7@gmail.com</a><br>
+          GitHub: <a href="[https://github.com/你的帳號](https://github.com/ThoamsClement)" target="_blank">[github.com/ThoamsClement]</a>
+        </div>
+      </div>
+      <!-- 換成你的照片檔名或 GitHub 大頭照網址 -->
+      <img src="avater.jpg" class="avatar" alt="Avatar">
+    </div>
+
+    <div class="section-title">個人簡介</div>
+    <p style="color: var(--text-sub);">熱愛開發與探索新技術的全端工程師，具備良好的問題解決能力與模組化開發思維。</p>
+
+    <div class="section-title"> 專業技能</div>
+    <ul>
+      <li><strong>前端：</strong> HTML5 / CSS3 / JavaScript (ES6+) / Vue / React</li>
+      <li><strong>後端：</strong> Node.js / Express / Python</li>
+      <li><strong>工具：</strong> Git / GitHub / Docker</li>
+    </ul>
+
+    <div class="section-title"> 專案經歷</div>
+    <ul>
+      <li><strong>個人履歷網站：</strong> 使用 GitHub Pages 與 GitHub Actions 建立之自動化部署站點。</li>
+    </ul>
+  </div>
+</body>
+</html>
