@@ -19,23 +19,63 @@
       }
     }
   </script>
+
+  <!-- jQuery & Select2 CDN -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
   <!-- Alpine.js CDN -->
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+  <!-- Select2 深色模式適應樣式 -->
+  <style>
+    .dark .select2-container--default .select2-selection--single {
+      background-color: #334155 !important;
+      border-color: #475569 !important;
+      color: #f8fafc !important;
+      border-radius: 0.5rem;
+      height: 38px;
+      display: flex;
+      align-items: center;
+    }
+    .dark .select2-container--default .select2-selection--single .select2-selection__rendered {
+      color: #f8fafc !important;
+    }
+    .dark .select2-dropdown {
+      background-color: #1e293b !important;
+      border-color: #475569 !important;
+      color: #f8fafc !important;
+    }
+    .dark .select2-results__option--highlighted[aria-selected] {
+      background-color: #0284c7 !important;
+    }
+    .select2-container--default .select2-selection--single {
+      border-radius: 0.5rem;
+      height: 38px;
+      display: flex;
+      align-items: center;
+    }
+  </style>
 </head>
 <body class="bg-slate-100 text-slate-800 dark:bg-slate-900 dark:text-slate-100 min-h-screen py-10 px-4 transition-colors duration-200">
   
   <div class="max-w-4xl mx-auto bg-white dark:bg-slate-800 p-8 sm:p-10 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700">
     
-    <!-- 控制列：主題與語言切換 -->
-    <div class="flex justify-end gap-3 mb-6 text-sm">
-      <button 
-        @click="lang = (lang === 'zh' ? 'en' : 'zh')"
-        class="px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-600 hover:border-sky-500 dark:hover:border-sky-400 transition"
-        x-text="lang === 'zh' ? 'English' : '中文'">
-      </button>
+    <!-- 控制列：主題與 Select2 語言切換 -->
+    <div class="flex justify-end items-center gap-3 mb-6 text-sm">
+      <!-- Select2 語系選擇器 -->
+      <div class="w-32">
+        <select x-ref="langSelect" class="w-full">
+          <option value="zh">繁體中文</option>
+          <option value="en">English</option>
+        </select>
+      </div>
+
+      <!-- 深淺色切換按鈕 -->
       <button 
         @click="isDark = !isDark"
-        class="px-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-600 hover:border-sky-500 dark:hover:border-sky-400 transition"
+        class="px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 hover:border-sky-500 dark:hover:border-sky-400 transition text-xs font-medium"
         x-text="isDark ? (lang === 'zh' ? '亮色模式' : 'Light Mode') : (lang === 'zh' ? '深色模式' : 'Dark Mode')">
       </button>
     </div>
@@ -51,17 +91,23 @@
           <span x-show="lang === 'en'">Software Engineer / Adjunct Lecturer</span>
         </div>
         
-        <div class="text-sm text-slate-500 dark:text-slate-400 space-y-1">
+        <div class="text-sm text-slate-500 dark:text-slate-400 space-y-1.5">
           <div>Email: <a href="mailto:hippoworld7@gmail.com" class="text-sky-500 dark:text-sky-400 hover:underline">hippoworld7@gmail.com</a></div>
           <div><span x-show="lang === 'zh'">電話：</span><span x-show="lang === 'en'">Phone: </span>0908-695-767</div>
           <div><span x-show="lang === 'zh'">地點：</span><span x-show="lang === 'en'">Location: </span>新北市鶯歌區</div>
-          <div>
-            GitHub: <a href="https://github.com/ThoamsClement" target="_blank" class="text-sky-500 dark:text-sky-400 hover:underline">github.com/ThoamsClement</a>
+          <div class="flex flex-wrap items-center justify-center sm:justify-start gap-2 pt-1">
+            <span>GitHub: <a href="https://github.com/ThoamsClement" target="_blank" class="text-sky-500 dark:text-sky-400 hover:underline">github.com/ThoamsClement</a></span>
+            
+            <!-- Showroom 頂部快捷按鈕 -->
+            <a href="https://your-gis-showroom-link.com" target="_blank" rel="noopener noreferrer" 
+               class="inline-flex items-center gap-1 px-2.5 py-0.5 bg-sky-500 hover:bg-sky-600 text-white rounded-md text-xs font-medium transition shadow-sm">
+               🗺️ <span x-show="lang === 'zh'">GIS / 地圖作品集</span><span x-show="lang === 'en'">Map Showroom</span>
+            </a>
           </div>
         </div>
       </div>
       <!-- 大頭照 -->
-      <img src="avater.jpg" class="w-28 h-28 rounded-full border-2 border-sky-500 dark:border-sky-400 object-cover" alt="YUCHENG YU">
+      <img src="avater.jpg" class="w-28 h-28 rounded-full border-2 border-sky-500 dark:border-sky-400 object-cover shadow-md" alt="YUCHENG YU">
     </div>
 
     <!-- 個人簡介 / 自傳 -->
@@ -86,7 +132,7 @@
       </div>
     </div>
 
-    <!-- 工作經歷 (自動計算年資) -->
+    <!-- 工作經歷 (自動計算累積年資) -->
     <div class="mb-8">
       <h2 class="text-xl font-bold text-sky-500 dark:text-sky-400 border-b-2 border-slate-200 dark:border-slate-700 pb-1 mb-3">
         <span x-show="lang === 'zh'">工作經歷 (累積總年資：<span x-text="calcTotalExp('zh')"></span>)</span>
@@ -170,12 +216,20 @@
           </strong>
           Git, Make, PyGUI, 軟體程式設計
         </li>
+        <!-- GIS / Mapbox 亮點與按鈕 -->
         <li>
           <strong class="text-slate-800 dark:text-slate-100">
-            <span x-show="lang === 'zh'">GIS / ArcGIS 測繪工具：</span>
-            <span x-show="lang === 'en'">GIS / ArcGIS Services Packages: </span>
+            <span x-show="lang === 'zh'">GIS / ArcGIS / Mapbox 地理資訊：</span>
+            <span x-show="lang === 'en'">GIS / ArcGIS & Mapbox Solutions: </span>
           </strong>
-          ArcGIS, Spatial Analysis (空間分析), Python (GeoPandas / Shapely), 地理資訊視覺化 (未公開之專案)
+          ArcGIS, Mapbox, Spatial Analysis (空間分析), Python (GeoPandas / Shapely), 地理資訊視覺化
+          <div class="mt-1.5">
+            <a href="https://your-gis-showroom-link.com" target="_blank" rel="noopener noreferrer" 
+               class="inline-flex items-center gap-1.5 px-3 py-1 bg-gradient-to-r from-sky-500 to-indigo-500 hover:from-sky-600 hover:to-indigo-600 text-white rounded-lg text-xs font-medium shadow-sm transition">
+               🌐 <span x-show="lang === 'zh'">開啟 ArcGIS / Mapbox 作品展示集 (Showroom)</span>
+                  <span x-show="lang === 'en'">Explore ArcGIS / Mapbox Live Showroom</span> →
+            </a>
+          </div>
         </li>
         <li>
           <strong class="text-slate-800 dark:text-slate-100">
@@ -246,25 +300,57 @@
 
   </div>
 
-  <!-- 年資計算邏輯 JavaScript -->
+  <!-- JavaScript 邏輯 (Select2 + 精準年資演算法) -->
   <script>
     function resumeApp() {
       return {
         isDark: true,
         lang: 'zh',
-        // 設定起算時間（設為首份工作時間 2021 年 6 月）
-        startDate: new Date('2021-06-01'),
-        
+
+        init() {
+          // 初始化 Select2 並與 Alpine.js 雙向綁定
+          const selectEl = $(this.$refs.langSelect);
+          selectEl.select2({
+            minimumResultsForSearch: Infinity,
+            dropdownAutoWidth: true,
+          });
+
+          selectEl.on('change', (e) => {
+            this.lang = e.target.value;
+          });
+        },
+
+        // 設定經歷時間區段 (可新增自由接案或更多職缺)
+        jobPeriods: [
+          { start: '2021-06-01', end: null }, // 從 2021/06 開始接案/工作至今
+          { start: '2023-10-01', end: '2026-07-31' },
+          { start: '2024-03-01', end: '2026-08-31' },
+          { start: '2025-08-01', end: null }  // null 表示現職 (Present)
+        ],
+
+        // 精準不重複月份年資計算演算法
         calcTotalExp(l) {
+          const activeMonths = new Set();
           const now = new Date();
-          let years = now.getFullYear() - this.startDate.getFullYear();
-          let months = now.getMonth() - this.startDate.getMonth();
-          
-          if (months < 0) {
-            years--;
-            months += 12;
-          }
-          
+
+          this.jobPeriods.forEach(period => {
+            let start = new Date(period.start);
+            let end = period.end ? new Date(period.end) : now;
+
+            let curr = new Date(start.getFullYear(), start.getMonth(), 1);
+            let last = new Date(end.getFullYear(), end.getMonth(), 1);
+
+            while (curr <= last) {
+              const monthKey = `${curr.getFullYear()}-${curr.getMonth()}`;
+              activeMonths.add(monthKey);
+              curr.setMonth(curr.getMonth() + 1);
+            }
+          });
+
+          const totalMonths = activeMonths.size;
+          const years = Math.floor(totalMonths / 12);
+          const months = totalMonths % 12;
+
           if (l === 'zh') {
             return `${years} 年 ${months} 個月`;
           } else {
